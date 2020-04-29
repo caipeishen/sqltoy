@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sqltoy xmlns="http://www.sagframe.com/schema/sqltoy"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sagframe.com/schema/sqltoy http://www.sagframe.com/schema/sqltoy/sqltoy.xsd">
+    <!-- 第一个演示sql -->
+    <sql id="sqltoy_query_anaInfo">
+
+        <!--缓存翻译-->
+        <translate cache="anaIdTitle" columns="ANA_TITLE" />
+
+        <filters>
+            <eq value="0" params="anaTypeId" />
+            <cache-arg cache-name="anaIdTitle" param="anaTitle" alias-name="anaIds" />
+        </filters>
+
+        <value>
+            <![CDATA[
+                select *,ID ANA_TITLE
+                from ana
+                where 1 = 1
+                #[and ID in (:anaIds)]
+                #[and ANA_TYPE_ID = :anaTypeId ]
+            ]]>
+        </value>
+    </sql>
+</sqltoy>
