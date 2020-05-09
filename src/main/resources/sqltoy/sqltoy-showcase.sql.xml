@@ -3,10 +3,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sagframe.com/schema/sqltoy http://www.sagframe.com/schema/sqltoy/sqltoy.xsd">
     <!-- 第一个演示sql -->
-    <sql id="sqltoy_query_anaInfo">
+    <sql id="sqltoy_query_anaList">
 
         <!--缓存翻译-->
-        <translate cache="anaIdTitle" columns="ANA_TITLE" />
+        <translate cache="userIdName" columns="USER_ID_NAME" cache-indexs="1"/>
+        <translate cache="anaTypeIdName" columns="ANA_TYPE_NAME" />
 
         <filters>
             <eq value="0" params="anaTypeId" />
@@ -15,11 +16,15 @@
 
         <value>
             <![CDATA[
-                select *,ID ANA_TITLE
+                select
+                    ANA_TITLE,
+                    USER_ID USER_ID_NAME,
+                    ANA_TYPE_ID ANA_TYPE_NAME,
+                    ANA_CONTENT
                 from ana
                 where 1 = 1
-                #[and ID in (:anaIds)]
                 #[and ANA_TYPE_ID = :anaTypeId ]
+                #[and ID in (:anaIds)]
             ]]>
         </value>
     </sql>
